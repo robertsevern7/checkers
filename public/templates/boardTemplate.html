@@ -1,0 +1,26 @@
+<% _.each(board, function(tile) { %>
+    <% var sum = tile.get('x') + tile.get('y'); %>
+    <% if(Math.floor(sum/2) === sum/2) { %>
+            <div class="redboardtile">
+                <% if(tile.get('player') === 1) { %>
+                    <% var extraClass = reversed ? '' :'active' %>
+                    <div class="circle player1 <%=extraClass %>" data-position="<%= tile.get('x') %>,<%= tile.get('y') %>"></div>
+                <% } %>
+
+                <% if(tile.get('player') === 0) { %>
+                    <div class="circle hidden" data-position="<%= tile.get('x') %>,<%= tile.get('y') %>"></div>
+                <% } %>
+
+                <% if(tile.get('player') === 2) { %>
+                    <% var extraClass = reversed ? 'active' :'' %>
+                    <div class="circle player2 <%=extraClass %>" data-position="<%= tile.get('x') %>,<%= tile.get('y') %>"></div>
+                <% } %>
+            </div>
+    <% } %>
+    <% if(Math.floor(sum/2) !== sum/2) { %>
+            <div class="blackboardtile"></div>
+    <% } %>
+    <% if(tile.get('x') === 7 && reversed || tile.get('x') === 0 && !reversed) { %>
+        <div></div>
+    <% } %>
+<% }); %>

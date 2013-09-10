@@ -1,0 +1,91 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+
+.redboardtile {
+    background-color: red;
+    width: 50px;
+    height: 50px;
+    display: table-cell;
+}
+
+.blackboardtile {
+    background-color: black;
+    width: 50px;
+    height: 50px;
+    display: table-cell;
+}
+
+.circle {
+    width: 40px;
+    height: 40px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    border-radius: 20px;
+    margin: 5px;
+}
+
+.hidden {
+    background-color: orange;
+    opacity:0;
+    filter:alpha(opacity=0);
+}
+
+.possibleMove {
+    opacity:0.5;
+    filter:alpha(opacity=0.5);
+}
+
+.possibleMove:hover {
+    opacity:0.7;
+    filter:alpha(opacity=0.7);
+}
+
+.player1 {
+    background-color: blue;
+}
+
+.player2 {
+    background-color: green;
+}
+
+.pieceover {
+    background-color: grey;
+}
+
+.pieceselect {
+    background-color: white;
+}
+
+.turnindicator {
+    font-weight: bold;
+    background-color: yellow;
+    padding: 3px;
+    -webkit-animation: pulse 3s infinite; /* Safari 4+ */
+    -moz-animation:    pulse 3s infinite; /* Fx 5+ */
+    -o-animation:      pulse 3s infinite; /* Opera 12+ */
+    animation:         pulse 3s infinite; /* IE 10+ */
+}
+
+@-webkit-keyframes pulse {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@-moz-keyframes pulse {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@-o-keyframes pulse {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes pulse {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}

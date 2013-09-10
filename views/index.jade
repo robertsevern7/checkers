@@ -1,0 +1,11 @@
+div#navigation!= partial('navbar.jade')
+div#apphome
+div.container-fluid
+  div.row-fluid
+    div(class="span2 offset1")
+      button#newgame(data-loading-text="loading...", class="btn btn-primary") New Game
+  div.row-fluid
+    br
+    div#turnindicator(class="span5 offset1")
+  div.row-fluid
+      div#board(class="span10 offset1")
