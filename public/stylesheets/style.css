@@ -63,6 +63,10 @@ a {
     background-color: white;
 }
 
+.forcedmove {
+    background-color: white;
+}
+
 .turnindicator {
     font-weight: bold;
     background-color: yellow;

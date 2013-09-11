@@ -1,10 +1,11 @@
 <% _.each(board, function(tile) { %>
     <% var sum = tile.get('x') + tile.get('y'); %>
+    <% var forcedPieceClass = forcedPiece && forcedPiece.x == tile.get('x') && forcedPiece.y == tile.get('y') ? 'forcedmove' : ''; %>
     <% if(Math.floor(sum/2) === sum/2) { %>
             <div class="redboardtile">
                 <% if(tile.get('player') === 1) { %>
                     <% var extraClass = reversed ? '' :'active' %>
-                    <div class="circle player1 <%=extraClass %>" data-position="<%= tile.get('x') %>,<%= tile.get('y') %>"></div>
+                    <div class="circle player1 <%=extraClass %> <%=forcedPieceClass %>" data-position="<%= tile.get('x') %>,<%= tile.get('y') %>"></div>
                 <% } %>
 
                 <% if(tile.get('player') === 0) { %>
@@ -13,7 +14,7 @@
 
                 <% if(tile.get('player') === 2) { %>
                     <% var extraClass = reversed ? 'active' :'' %>
-                    <div class="circle player2 <%=extraClass %>" data-position="<%= tile.get('x') %>,<%= tile.get('y') %>"></div>
+                    <div class="circle player2 <%=extraClass %> <%=forcedPieceClass %>" data-position="<%= tile.get('x') %>,<%= tile.get('y') %>"></div>
                 <% } %>
             </div>
     <% } %>

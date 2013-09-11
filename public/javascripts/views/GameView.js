@@ -8,7 +8,7 @@ function($, _, Backbone, bootstrap, boardTemplate) {
     var GameView = Backbone.View.extend({
         el: $('#board'),
         template: _.template(boardTemplate),
-        render: function (board, gameOwner, yourTurn) {
+        render: function (board, gameOwner, yourTurn, forcedPiece) {
             this.board = board;
             this.yourTurn = yourTurn;
             var toDraw = board.models;
@@ -26,8 +26,16 @@ function($, _, Backbone, bootstrap, boardTemplate) {
             this.gameOwner = gameOwner;
             $(this.el).html(this.template({
                 board: toDraw,
-                reversed: !gameOwner
+                reversed: !gameOwner,
+                forcedPiece: forcedPiece
             }));
+
+            if (forcedPiece) {
+                var possibleMoves = this.board.findPossibleTakingMoves(forcedPiece.x, forcedPiece.y);
+                this.highlightPossibleMoves(possibleMoves);
+                this.selectPieceDisallowed = true;
+            }
+
             return this;
         },
         events: {
@@ -37,7 +45,7 @@ function($, _, Backbone, bootstrap, boardTemplate) {
             'click .possibleMove': 'makeMove'
         },
         highlightPiece: function(event) {
-            if (this.yourTurn) {
+            if (this.yourTurn && !this.selectPieceDisallowed) {
                 $(event.target).addClass('pieceover');
             }
 
@@ -47,7 +55,7 @@ function($, _, Backbone, bootstrap, boardTemplate) {
             $(event.target).removeClass('pieceover');
         },
         selectPiece: function(event) {
-            if (this.yourTurn) {
+            if (this.yourTurn && !this.selectPieceDisallowed) {
                 $('.pieceselect').each(function() {
                     if ($(this).hasClass('pieceselect')) {
                         //TODO edit model to remove selected option
@@ -59,7 +67,7 @@ function($, _, Backbone, bootstrap, boardTemplate) {
                 var x = pos[0] - 0;
                 var y = pos[1] - 0;
                 //TODO edit model to add selected option
-                var possibleMoves = this.board.findPossibleMoves(x, y, !this.gameOwner);
+                var possibleMoves = this.board.findPossibleMoves(x, y);
                 this.highlightPossibleMoves(possibleMoves);
             }
         },
@@ -73,7 +81,8 @@ function($, _, Backbone, bootstrap, boardTemplate) {
 
         makeMove: function(event) {
             var moveToPos = $(event.target).attr('data-position').split(',');
-            var moveFromPos = $('.pieceselect').attr('data-position').split(',');
+            var selectorClass = this.selectPieceDisallowed ? '.forcedmove' : '.pieceselect';
+            var moveFromPos = $(selectorClass).attr('data-position').split(',');
             this.board.movePiece(moveFromPos, moveToPos);
         }
     });

@@ -48,11 +48,19 @@ function($, _, Backbone, bootstrap, firebase, GameView, TurnIndicatorView, Tile,
         router.on('route:game', function(id) {
             fireBaseGame = new Firebase('https://checkers-game.firebaseio.com/checkers/' + id);
 
-            board.on('moved', function() {
-                fireBaseGame.update({
-                    lastTurn: myId,
+            board.on('moved', function(forceNextMove, x, y) {
+                var updateData = {
                     board: board.getData()
-                });
+                }
+
+                if (!forceNextMove) {
+                    updateData.lastTurn = myId;
+                    updateData.forcedMovePiece = {x: -1, y: -1};
+                } else {
+                    updateData.forcedMovePiece = {x: x, y: y};
+                }
+
+                fireBaseGame.update(updateData);
             })
 
             fireBaseGame.on('value', function(data) {
@@ -66,7 +74,8 @@ function($, _, Backbone, bootstrap, firebase, GameView, TurnIndicatorView, Tile,
                 turnIndicatorView.render(yourTurn);
                 board.destroyAll();
                 board.add(data.val().board)
-                gameView.render(board, gameOwner, yourTurn);
+                var forcedPiece = yourTurn && data.val().forcedMovePiece && data.val().forcedMovePiece.x != -1 && data.val().forcedMovePiece;
+                gameView.render(board, gameOwner, yourTurn, forcedPiece);
             })
         })
 

@@ -83,16 +83,19 @@ function($, _, Backbone, bootstrap, Tile) {
             }
         },
 
-        findPossibleMoves: function(x, y, goingBack) {
+        findPossibleMoves: function(x, y) {
+            x = x - 0;
+            y = y - 0;
             var activePlayer = this.models[getTileLocation(x , y)].get('player');
             var possible = [];
+            var goingBack = activePlayer == 2;
 
             var nextY = goingBack ? (y - 1) : (y + 1);
             var yPossible = goingBack ? (y > 0) : (y < 7);
 
             if (yPossible) {
                 if (x > 0) {
-                    var player = this.models[getTileLocation(x - 1, nextY)].get('player')
+                    var player = this.models[getTileLocation(x - 1, nextY)].get('player');
                     if (!player) {
                         possible.push([x - 1, nextY])
                     } else if (player !== activePlayer) {
@@ -102,7 +105,7 @@ function($, _, Backbone, bootstrap, Tile) {
                 }
 
                 if (x < 7) {
-                    var player = this.models[getTileLocation(x + 1, nextY)].get('player')
+                    var player = this.models[getTileLocation(x + 1, nextY)].get('player');
                     if (!player) {
                         possible.push([x + 1, nextY]);
                     } else if (player !== activePlayer) {
@@ -135,6 +138,18 @@ function($, _, Backbone, bootstrap, Tile) {
             }
         },
 
+        findPossibleTakingMoves: function(x, y) {
+            var possibleMoves = this.findPossibleMoves(x, y);
+            var takingMoves = [];
+            for (var i =0, len = possibleMoves.length; i < len; i++) {
+                if (Math.abs(possibleMoves[i][0] - x) === 2 && Math.abs(possibleMoves[i][1] - y) === 2) {
+                    takingMoves.push(possibleMoves[i]);
+                }
+            }
+
+            return takingMoves;
+        },
+
         movePiece: function(moveFromPos, moveToPos) {
             var from = this.models[getTileLocation(moveFromPos[0], moveFromPos[1])];
             var to = this.models[getTileLocation(moveToPos[0], moveToPos[1])];
@@ -149,19 +164,25 @@ function($, _, Backbone, bootstrap, Tile) {
             to.set('player', from.get('player'));
             from.set('player', 0);
 
+            var possibleMoves = removed ? this.findPossibleTakingMoves(moveToPos[0], moveToPos[1]) : [];
 
-            this.trigger('moved');
+            this.trigger('moved', !!possibleMoves.length, moveToPos[0], moveToPos[1]);
 
             return removed;
         },
 
         getData: function() {
             return _.map(this.models, function(model) {
-                return {
+                var data = {
                     player: model.get('player'),
                     x: model.get('x'),
                     y: model.get('y')
                 }
+                if (model.get('forceNextMove') !== undefined) {
+                    data.forceNextMove = model.get('forceNextMove');
+                }
+
+                return data;
             })
         },
 

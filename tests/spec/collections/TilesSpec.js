@@ -39,18 +39,18 @@ function(Tile, Tiles) {
 
         //PLAYER 2
         it('No moves for piece trapped at back', function() {
-            expect(0).toEqual(tiles.findPossibleMoves(5, 7, true).length);
+            expect(0).toEqual(tiles.findPossibleMoves(5, 7).length);
         });
 
         it('One move for guy at the front on far left, going back', function() {
-            expect(1).toEqual(tiles.findPossibleMoves(7, 5, true).length);
-            expect('6,4').toEqual(tiles.findPossibleMoves(7, 5, true)[0].toString());
+            expect(1).toEqual(tiles.findPossibleMoves(7, 5).length);
+            expect('6,4').toEqual(tiles.findPossibleMoves(7, 5)[0].toString());
         });
 
         it('Two moves for guy at the front in middle, going back', function() {
-            expect(2).toEqual(tiles.findPossibleMoves(3, 5, true).length);
-            expect('2,4').toEqual(tiles.findPossibleMoves(3, 5, true)[0].toString());
-            expect('4,4').toEqual(tiles.findPossibleMoves(3, 5, true)[1].toString());
+            expect(2).toEqual(tiles.findPossibleMoves(3, 5).length);
+            expect('2,4').toEqual(tiles.findPossibleMoves(3, 5)[0].toString());
+            expect('4,4').toEqual(tiles.findPossibleMoves(3, 5)[1].toString());
         });
 
         it('Moving piece has effect', function() {
@@ -84,8 +84,8 @@ function(Tile, Tiles) {
 
         it('Test various jumps', function() {
             movePieces();
-            expect(1).toEqual(tiles.findPossibleMoves(6, 4, true).length);
-            expect('4,2').toEqual(tiles.findPossibleMoves(6, 4, true)[0].toString());
+            expect(1).toEqual(tiles.findPossibleMoves(6, 4).length);
+            expect('4,2').toEqual(tiles.findPossibleMoves(6, 4)[0].toString());
 
             expect(1).toEqual(tiles.findPossibleMoves(7, 3).length);
             expect('5,5').toEqual(tiles.findPossibleMoves(7, 3)[0].toString());
@@ -96,8 +96,8 @@ function(Tile, Tiles) {
             expect(1).toEqual(tiles.findPossibleMoves(1, 3).length);
             expect('2,4').toEqual(tiles.findPossibleMoves(1, 3)[0].toString());
 
-            expect(1).toEqual(tiles.findPossibleMoves(0, 4, true).length);
-            expect('2,2').toEqual(tiles.findPossibleMoves(0, 4, true)[0].toString());
+            expect(1).toEqual(tiles.findPossibleMoves(0, 4).length);
+            expect('2,2').toEqual(tiles.findPossibleMoves(0, 4)[0].toString());
         });
 
         it('Test taking pieces', function() {
@@ -110,6 +110,16 @@ function(Tile, Tiles) {
             expect(1).toEqual(tiles.getModelForPosition(5, 5).get('player'));
             expect(true).toEqual(tiles.movePiece([6, 6], [4, 4]));
             expect(0).toEqual(tiles.getModelForPosition(5, 5).get('player'));
+        });
+
+        it('Test taking moves check', function() {
+            movePieces();
+            tiles.movePiece([7, 5], [1, 5])
+
+            expect(1).toEqual(tiles.findPossibleTakingMoves(5, 3).length);
+            expect('7,5').toEqual(tiles.findPossibleTakingMoves(5, 3)[0].toString());
+
+            expect(0).toEqual(tiles.findPossibleTakingMoves(1, 3).length);
         });
 
         /*it('Invalid move has no effect -- actually don't care, as long as I only show valid moves we're fine', function() {
