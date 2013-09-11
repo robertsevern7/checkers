@@ -34,6 +34,8 @@ function($, _, Backbone, bootstrap, boardTemplate) {
                 var possibleMoves = this.board.findPossibleTakingMoves(forcedPiece.x, forcedPiece.y);
                 this.highlightPossibleMoves(possibleMoves);
                 this.selectPieceDisallowed = true;
+            } else {
+                this.selectPieceDisallowed = false;
             }
 
             return this;

@@ -86,9 +86,23 @@ function($, _, Backbone, bootstrap, Tile) {
         findPossibleMoves: function(x, y) {
             x = x - 0;
             y = y - 0;
-            var activePlayer = this.models[getTileLocation(x , y)].get('player');
+            var tile = this.models[getTileLocation(x , y)];
+            var activePlayer = tile.get('player');
             var possible = [];
-            var goingBack = activePlayer == 2;
+            var upgraded = tile.get('upgraded');
+
+            if (upgraded) {
+                var forwardMoves = this._findPossibleMoves(x, y, activePlayer, false);
+                var backMoves = this._findPossibleMoves(x, y, activePlayer, true);
+                return _.union(forwardMoves, backMoves);
+            } else {
+                var goingBack = activePlayer == 2;
+                return this._findPossibleMoves(x, y, activePlayer, goingBack);
+            }
+        },
+
+        _findPossibleMoves: function(x, y, activePlayer, goingBack) {
+            var possible = [];
 
             var nextY = goingBack ? (y - 1) : (y + 1);
             var yPossible = goingBack ? (y > 0) : (y < 7);
@@ -99,7 +113,7 @@ function($, _, Backbone, bootstrap, Tile) {
                     if (!player) {
                         possible.push([x - 1, nextY])
                     } else if (player !== activePlayer) {
-                        var move = this._nextJumpPossible(x - 1, nextY, goingBack, false);
+                        var move = this._nextJumpPossible(x - 1, nextY, (nextY < y), false);
                         move && possible.push(move)
                     }
                 }
@@ -109,7 +123,7 @@ function($, _, Backbone, bootstrap, Tile) {
                     if (!player) {
                         possible.push([x + 1, nextY]);
                     } else if (player !== activePlayer) {
-                        var move = this._nextJumpPossible(x + 1, nextY, goingBack, true);
+                        var move = this._nextJumpPossible(x + 1, nextY, (nextY < y), true);
                         move && possible.push(move)
                     }
 
@@ -161,8 +175,14 @@ function($, _, Backbone, bootstrap, Tile) {
                 removed = true;
             }
 
-            to.set('player', from.get('player'));
+            var movingPlayer = from.get('player');
+            to.set('player', movingPlayer);
+
+            var upgrade = movingPlayer == 1 && moveToPos[1] == 7 || moveToPos[1] == 0;
+            to.set('upgraded', !!(upgrade || from.get('upgraded')));
+
             from.set('player', 0);
+            from.set('upgraded', false);
 
             var possibleMoves = removed ? this.findPossibleTakingMoves(moveToPos[0], moveToPos[1]) : [];
 
@@ -176,7 +196,8 @@ function($, _, Backbone, bootstrap, Tile) {
                 var data = {
                     player: model.get('player'),
                     x: model.get('x'),
-                    y: model.get('y')
+                    y: model.get('y'),
+                    upgraded: !model.get('upgraded')
                 }
                 if (model.get('forceNextMove') !== undefined) {
                     data.forceNextMove = model.get('forceNextMove');

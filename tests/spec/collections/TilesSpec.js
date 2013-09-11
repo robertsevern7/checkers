@@ -100,6 +100,17 @@ function(Tile, Tiles) {
             expect('2,2').toEqual(tiles.findPossibleMoves(0, 4)[0].toString());
         });
 
+        it('Test upgraded jumps -- can go back or forward', function() {
+            movePieces();
+            tiles.movePiece([7, 5], [1, 5]);
+            tiles.getModelForPosition(5, 3).set('upgraded', true);
+            expect(4).toEqual(tiles.findPossibleMoves(5, 3).length);
+            expect('4,4').toEqual(tiles.findPossibleMoves(5, 3)[0].toString());
+            expect('7,5').toEqual(tiles.findPossibleMoves(5, 3)[1].toString());
+            expect('4,2').toEqual(tiles.findPossibleMoves(5, 3)[2].toString());
+            expect('6,2').toEqual(tiles.findPossibleMoves(5, 3)[3].toString());
+        });
+
         it('Test taking pieces', function() {
             movePieces();
 
@@ -114,7 +125,7 @@ function(Tile, Tiles) {
 
         it('Test taking moves check', function() {
             movePieces();
-            tiles.movePiece([7, 5], [1, 5])
+            tiles.movePiece([7, 5], [1, 5]);
 
             expect(1).toEqual(tiles.findPossibleTakingMoves(5, 3).length);
             expect('7,5').toEqual(tiles.findPossibleTakingMoves(5, 3)[0].toString());

@@ -56,7 +56,7 @@ a {
 }
 
 .pieceover {
-    background-color: grey;
+    background-color: grey !important;
 }
 
 .pieceselect {
@@ -65,6 +65,10 @@ a {
 
 .forcedmove {
     background-color: white;
+}
+
+.upgraded {
+    background-color: purple;
 }
 
 .turnindicator {
