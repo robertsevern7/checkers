@@ -60,6 +60,14 @@ function($, _, Backbone, bootstrap, firebase, GameView, TurnIndicatorView, Tile,
                     updateData.forcedMovePiece = {x: x, y: y};
                 }
 
+                var pieceCounts = board.getPieceCounts();
+
+                if (!pieceCounts.player1) {
+                    updateData.winner = 'Player 2';
+                } else if (!pieceCounts.player2) {
+                    updateData.winner = 'Player 1';
+                }
+
                 fireBaseGame.update(updateData);
             })
 
@@ -76,6 +84,11 @@ function($, _, Backbone, bootstrap, firebase, GameView, TurnIndicatorView, Tile,
                 board.add(data.val().board)
                 var forcedPiece = yourTurn && data.val().forcedMovePiece && data.val().forcedMovePiece.x != -1 && data.val().forcedMovePiece;
                 gameView.render(board, gameOwner, yourTurn, forcedPiece);
+
+                //TODO move to the view
+                if (data.val().winner) {
+                    alert(data.val().winner +  ' Wins');
+                }
             })
         })
 

@@ -191,6 +191,25 @@ function($, _, Backbone, bootstrap, Tile) {
             return removed;
         },
 
+        getPieceCounts: function() {
+            var p1 = 0;
+            var p2 = 0;
+
+            for (var i = 0, len = this.models.length; i < len; i++) {
+                console.log(this.at(i).get('player'))
+                if (this.at(i).get('player') == 1) {
+                    p1++;
+                } else if (this.at(i).get('player') == 2) {
+                    p2++;
+                }
+            }
+
+            return {
+                player1: p1,
+                player2: p2
+            }
+        },
+
         getData: function() {
             return _.map(this.models, function(model) {
                 var data = {
