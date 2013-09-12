@@ -8,10 +8,18 @@ function($, _, Backbone, bootstrap, turnIndicator) {
     var TurnIndicatorView = Backbone.View.extend({
         el: $('#turnindicator'),
         template: _.template(turnIndicator),
-        render: function (yourTurn) {
+        render: function (yourTurn, gameFinished) {
             $(this.el).html(this.template({
-                yourTurn: yourTurn
+                yourTurn: yourTurn,
+                gameFinished: gameFinished
             }));
+
+            if (gameFinished) {
+                $(this.el).addClass('completely-hidden');
+            } else {
+                $(this.el).removeClass('completely-hidden');
+            }
+
             return this;
         }
     });

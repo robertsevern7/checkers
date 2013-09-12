@@ -71,6 +71,20 @@ a {
     background-color: purple;
 }
 
+.completely-hidden {
+    display: none !important;
+}
+
+.winnerindicator {
+    font-weight: bold;
+    background-color: yellow;
+    padding: 3px;
+    -webkit-animation: pulse 3s infinite; /* Safari 4+ */
+    -moz-animation:    pulse 3s infinite; /* Fx 5+ */
+    -o-animation:      pulse 3s infinite; /* Opera 12+ */
+    animation:         pulse 3s infinite; /* IE 10+ */
+}
+
 .turnindicator {
     font-weight: bold;
     background-color: yellow;

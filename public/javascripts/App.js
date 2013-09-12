@@ -12,9 +12,10 @@ define([
     'firebase',
     'views/GameView',
     'views/TurnIndicatorView',
+    'views/GameOverView',
     'models/Tile',
     'collections/Tiles'],
-function($, _, Backbone, bootstrap, firebase, GameView, TurnIndicatorView, Tile, Tiles) {
+function($, _, Backbone, bootstrap, firebase, GameView, TurnIndicatorView, GameOverView, Tile, Tiles) {
     $(function() {
         //TODO need to store this id as a cookie or something -- maybe local storage?
         var myId = Math.floor(Math.random()*10000000);
@@ -36,6 +37,7 @@ function($, _, Backbone, bootstrap, firebase, GameView, TurnIndicatorView, Tile,
         });
 
         var turnIndicatorView = new TurnIndicatorView();
+        var gameOverView = new GameOverView();
         var gameView = new GameView();
 
         var Router = Backbone.Router.extend({
@@ -71,9 +73,9 @@ function($, _, Backbone, bootstrap, firebase, GameView, TurnIndicatorView, Tile,
             var pieceCounts = board.getPieceCounts();
 
             if (!pieceCounts.player1) {
-                updateData.winner = 'Player 2';
+                updateData.winner = 2;
             } else if (!pieceCounts.player2) {
-                updateData.winner = 'Player 1';
+                updateData.winner = 1;
             }
 
             fireBaseGame.update(updateData);
@@ -86,17 +88,14 @@ function($, _, Backbone, bootstrap, firebase, GameView, TurnIndicatorView, Tile,
 
             gameOwner = data.val().gameOwner == myId;
 
+            var winner = data.val().winner;
             var yourTurn = data.val().lastTurn ? data.val().lastTurn != myId : gameOwner;
-            turnIndicatorView.render(yourTurn);
+            turnIndicatorView.render(yourTurn, !!winner);
+            gameOverView.render(winner);
             board.destroyAll();
             board.add(data.val().board)
             var forcedPiece = yourTurn && data.val().forcedMovePiece && data.val().forcedMovePiece.x != -1 && data.val().forcedMovePiece;
             gameView.render(board, gameOwner, yourTurn, forcedPiece);
-
-            //TODO move to the view
-            if (data.val().winner) {
-                alert(data.val().winner +  ' Wins');
-            }
         }
 
         Backbone.history.start();
