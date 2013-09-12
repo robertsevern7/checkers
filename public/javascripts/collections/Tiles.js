@@ -185,7 +185,6 @@ function($, _, Backbone, bootstrap, Tile) {
             from.set('upgraded', false);
 
             var possibleMoves = removed ? this.findPossibleTakingMoves(moveToPos[0], moveToPos[1]) : [];
-
             this.trigger('moved', !!possibleMoves.length, moveToPos[0], moveToPos[1]);
 
             return removed;
@@ -196,7 +195,6 @@ function($, _, Backbone, bootstrap, Tile) {
             var p2 = 0;
 
             for (var i = 0, len = this.models.length; i < len; i++) {
-                console.log(this.at(i).get('player'))
                 if (this.at(i).get('player') == 1) {
                     p1++;
                 } else if (this.at(i).get('player') == 2) {
@@ -216,7 +214,7 @@ function($, _, Backbone, bootstrap, Tile) {
                     player: model.get('player'),
                     x: model.get('x'),
                     y: model.get('y'),
-                    upgraded: !model.get('upgraded')
+                    upgraded: !!model.get('upgraded')
                 }
                 if (model.get('forceNextMove') !== undefined) {
                     data.forceNextMove = model.get('forceNextMove');
