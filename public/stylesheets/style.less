@@ -1,0 +1,136 @@
+@page-font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+
+@tile-size: 50px;
+@circle-size: @tile-size * 0.8;
+
+@player1-color: blue;
+@player2-color: green;
+@possible-move-color: orange;
+
+@indicator-color: yellow;
+@pulse-rate: pulse 3s infinite;
+
+body {
+  padding: 50px;
+  font: @page-font;
+}
+
+.tile {
+    width: @tile-size;
+    height: @tile-size;
+    display: table-cell;
+}
+
+.redboardtile {
+    background-color: red;
+    .tile
+}
+
+.blackboardtile {
+    background-color: black;
+    .tile
+}
+
+.rounded-corners (@radius: 5px) {
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  -ms-border-radius: @radius;
+  -o-border-radius: @radius;
+  border-radius: @radius;
+}
+
+.circle {
+    width: @circle-size;
+    height: @circle-size;
+    .rounded-corners(@circle-size/2);
+    margin: @tile-size/10;
+}
+
+.opacity(@opacity) {
+     @ieOpacity: @opacity * 100;
+     -ms-filter: ~"progid:DXImageTransform.Microsoft.Alpha(Opacity=@{ieOpacity})"; // IE 8
+     filter: ~"alpha(opacity=@{ieOpacity})"; // IE 5-7
+     opacity: @opacity;
+}
+
+.noplayer {
+    background-color: @possible-move-color;
+    .opacity(0);
+}
+
+.possibleMove {
+    .opacity(0.5);
+}
+
+.possibleMove:hover {
+    .opacity(0.8);
+}
+
+.player1 {
+    background-color: @player1-color;
+}
+.player1.pieceover {
+    background-color: darken(@player1-color, 30%) !important;
+}
+.player1.pieceselect {
+    background-color: darken(@player1-color, 20%);
+}
+.player1.forcedmove {
+    background-color: darken(@player1-color, 20%);
+}
+
+.player2 {
+    background-color: @player2-color;
+}
+.player2.pieceover {
+    background-color: darken(@player2-color, 30%) !important;
+}
+.player2.pieceselect {
+    background-color: darken(@player2-color, 20%);
+}
+.player2.forcedmove {
+    background-color: darken(@player2-color, 20%);
+}
+
+.circle.upgraded {
+    .rounded-corners(0);
+}
+
+.completely-hidden {
+    display: none !important;
+}
+
+.winnerindicator {
+    .indicator;
+}
+
+.turnindicator {
+    .indicator;
+}
+
+.indicator {
+    font-weight: bold;
+    background-color: @indicator-color;
+    padding: 3px;
+    -webkit-animation: @pulse-rate; /* Safari 4+ */
+    -moz-animation:    @pulse-rate; /* Fx 5+ */
+    -o-animation:      @pulse-rate; /* Opera 12+ */
+    animation:         @pulse-rate; /* IE 10+ */
+}
+
+@-webkit-keyframes pulse {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@-moz-keyframes pulse {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@-o-keyframes pulse {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes pulse {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}

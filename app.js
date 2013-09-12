@@ -4,7 +4,8 @@
  */
 
 var express = require('express')
-  , routes = require('./routes');
+  , routes = require('./routes')
+  , lessMiddleware = require('less-middleware');;
 
 var app = module.exports = express.createServer();
 
@@ -16,6 +17,9 @@ app.configure(function(){
   app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(app.router);
+  app.use(lessMiddleware({
+    src: __dirname + "/public",
+  }));
   app.use(express.static(__dirname + '/public'));
 });
 

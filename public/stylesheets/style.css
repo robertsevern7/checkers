@@ -2,112 +2,163 @@ body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
-
-a {
-  color: #00B7FF;
+.tile {
+  width: 50px;
+  height: 50px;
+  display: table-cell;
 }
-
-
 .redboardtile {
-    background-color: red;
-    width: 50px;
-    height: 50px;
-    display: table-cell;
+  background-color: red;
+  width: 50px;
+  height: 50px;
+  display: table-cell;
 }
-
 .blackboardtile {
-    background-color: black;
-    width: 50px;
-    height: 50px;
-    display: table-cell;
+  background-color: black;
+  width: 50px;
+  height: 50px;
+  display: table-cell;
 }
-
 .circle {
-    width: 40px;
-    height: 40px;
-    -webkit-border-radius: 20px;
-    -moz-border-radius: 20px;
-    border-radius: 20px;
-    margin: 5px;
+  width: 40px;
+  height: 40px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+  border-radius: 20px;
+  margin: 5px;
 }
-
-.hidden {
-    background-color: orange;
-    opacity:0;
-    filter:alpha(opacity=0);
+.noplayer {
+  background-color: #ffa500;
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+  filter: alpha(opacity=0);
+  opacity: 0;
 }
-
 .possibleMove {
-    opacity:0.5;
-    filter:alpha(opacity=0.5);
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+  filter: alpha(opacity=50);
+  opacity: 0.5;
 }
-
 .possibleMove:hover {
-    opacity:0.7;
-    filter:alpha(opacity=0.7);
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+  filter: alpha(opacity=80);
+  opacity: 0.8;
 }
-
 .player1 {
-    background-color: blue;
+  background-color: #0000ff;
 }
-
+.player1.pieceover {
+  background-color: #000066 !important;
+}
+.player1.pieceselect {
+  background-color: #000099;
+}
+.player1.forcedmove {
+  background-color: #000099;
+}
 .player2 {
-    background-color: green;
+  background-color: #008000;
 }
-
-.pieceover {
-    background-color: grey !important;
+.player2.pieceover {
+  background-color: #000000 !important;
 }
-
-.pieceselect {
-    background-color: white;
+.player2.pieceselect {
+  background-color: #001a00;
 }
-
-.forcedmove {
-    background-color: white;
+.player2.forcedmove {
+  background-color: #001a00;
 }
-
-.upgraded {
-    background-color: purple;
+.circle.upgraded {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  -ms-border-radius: 0;
+  -o-border-radius: 0;
+  border-radius: 0;
 }
-
 .completely-hidden {
-    display: none !important;
+  display: none !important;
 }
-
 .winnerindicator {
-    font-weight: bold;
-    background-color: yellow;
-    padding: 3px;
-    -webkit-animation: pulse 3s infinite; /* Safari 4+ */
-    -moz-animation:    pulse 3s infinite; /* Fx 5+ */
-    -o-animation:      pulse 3s infinite; /* Opera 12+ */
-    animation:         pulse 3s infinite; /* IE 10+ */
-}
+  font-weight: bold;
+  background-color: #ffff00;
+  padding: 3px;
+  -webkit-animation: pulse 3s infinite;
+  /* Safari 4+ */
 
+  -moz-animation: pulse 3s infinite;
+  /* Fx 5+ */
+
+  -o-animation: pulse 3s infinite;
+  /* Opera 12+ */
+
+  animation: pulse 3s infinite;
+  /* IE 10+ */
+
+}
 .turnindicator {
-    font-weight: bold;
-    background-color: yellow;
-    padding: 3px;
-    -webkit-animation: pulse 3s infinite; /* Safari 4+ */
-    -moz-animation:    pulse 3s infinite; /* Fx 5+ */
-    -o-animation:      pulse 3s infinite; /* Opera 12+ */
-    animation:         pulse 3s infinite; /* IE 10+ */
-}
+  font-weight: bold;
+  background-color: #ffff00;
+  padding: 3px;
+  -webkit-animation: pulse 3s infinite;
+  /* Safari 4+ */
 
+  -moz-animation: pulse 3s infinite;
+  /* Fx 5+ */
+
+  -o-animation: pulse 3s infinite;
+  /* Opera 12+ */
+
+  animation: pulse 3s infinite;
+  /* IE 10+ */
+
+}
+.indicator {
+  font-weight: bold;
+  background-color: #ffff00;
+  padding: 3px;
+  -webkit-animation: pulse 3s infinite;
+  /* Safari 4+ */
+
+  -moz-animation: pulse 3s infinite;
+  /* Fx 5+ */
+
+  -o-animation: pulse 3s infinite;
+  /* Opera 12+ */
+
+  animation: pulse 3s infinite;
+  /* IE 10+ */
+
+}
 @-webkit-keyframes pulse {
-  0%   { opacity: 0; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 @-moz-keyframes pulse {
-  0%   { opacity: 0; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 @-o-keyframes pulse {
-  0%   { opacity: 0; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 @keyframes pulse {
-  0%   { opacity: 0; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
