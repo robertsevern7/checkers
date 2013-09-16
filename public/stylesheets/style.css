@@ -2,6 +2,9 @@ body {
   padding-top: 60px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
+#board {
+  margin-bottom: 10px;
+}
 .tile {
   width: 50px;
   height: 50px;
@@ -85,10 +88,51 @@ body {
 .game-visible {
   display: none;
 }
+#chat-window {
+  margin-top: 27px;
+}
+.messageinput {
+  margin: 5px;
+}
+.messages {
+  margin: 5px;
+  height: 250px;
+  overflow-y: auto;
+}
+.player-1-message {
+  float: left;
+  padding: 3px;
+  margin: 5px;
+  width: 60%;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  background-color: #ccccff;
+}
+.player-2-message {
+  float: right;
+  padding: 3px;
+  margin: 5px;
+  width: 60%;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  background-color: #4dff4d;
+}
 .winnerindicator {
+  margin: 10px;
   font-weight: bold;
   background-color: #ffff00;
-  padding: 3px;
+  padding: 10px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
   -webkit-animation: pulse 3s infinite;
   /* Safari 4+ */
 
@@ -103,9 +147,15 @@ body {
 
 }
 .turnindicator {
+  margin: 10px;
   font-weight: bold;
   background-color: #ffff00;
-  padding: 3px;
+  padding: 10px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
   -webkit-animation: pulse 3s infinite;
   /* Safari 4+ */
 
@@ -120,9 +170,15 @@ body {
 
 }
 .indicator {
+  margin: 10px;
   font-weight: bold;
   background-color: #ffff00;
-  padding: 3px;
+  padding: 10px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
   -webkit-animation: pulse 3s infinite;
   /* Safari 4+ */
 

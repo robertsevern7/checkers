@@ -15,6 +15,10 @@ body {
   font: @page-font;
 }
 
+#board {
+    margin-bottom: 10px;
+}
+
 .tile {
     width: @tile-size;
     height: @tile-size;
@@ -103,6 +107,38 @@ body {
     display: none;
 }
 
+#chat-window {
+    margin-top: 27px;
+}
+
+.messageinput {
+    margin: 5px;
+}
+
+.messages {
+    margin: 5px;
+    height: @tile-size * 5;
+    overflow-y: auto;
+}
+
+.message(@color) {
+    padding: 3px;
+    margin: 5px;
+    width: 60%;
+    .rounded-corners;
+    background-color: lighten(@color, 40%);
+}
+
+.player-1-message {
+    float: left;
+    .message(@player1-color);
+}
+
+.player-2-message {
+    float: right;
+    .message(@player2-color);
+}
+
 .winnerindicator {
     .indicator;
 }
@@ -112,9 +148,11 @@ body {
 }
 
 .indicator {
+    margin: 10px;
     font-weight: bold;
     background-color: @indicator-color;
-    padding: 3px;
+    padding: 10px;
+    .rounded-corners;
     -webkit-animation: @pulse-rate; /* Safari 4+ */
     -moz-animation:    @pulse-rate; /* Fx 5+ */
     -o-animation:      @pulse-rate; /* Opera 12+ */

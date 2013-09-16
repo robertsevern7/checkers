@@ -30,6 +30,8 @@ function($, _, Backbone, bootstrap, Messages, chatWindow) {
                 messages: messages.models
             }));
 
+            $('.messages').scrollTop($('.messages')[0].scrollHeight);
+            $('.messageinput').focus();
             return this;
         }, events: {
             'keyup .messageinput': 'addMessageToFirebase',
