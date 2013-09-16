@@ -47,12 +47,9 @@ function($, _, Backbone, bootstrap, boardTemplate) {
             'click .possibleMove': 'makeMove'
         },
         highlightPiece: function(event) {
-        console.log(this.yourTurn +','+ !this.selectPieceDisallowed)
             if (this.yourTurn && !this.selectPieceDisallowed) {
                 $(event.target).addClass('pieceover');
             }
-
-            //TODO semi highlight possible positions
         },
         unhighlightPiece: function(event) {
             $(event.target).removeClass('pieceover');

@@ -1,12 +1,22 @@
-div#navigation!= partial('navbar.jade')
-div#apphome
-div.container-fluid
-  div.row-fluid
-    div(class="span2 offset1")
-      button#newgame(data-loading-text="loading...", class="btn btn-primary") New Game
-  div.row-fluid
-    br
-    div#turnindicator(class="span5 offset1")
-    div#winnerindicator(class="span5 offset1")
-  div.row-fluid
-      div#board(class="span10 offset1")
+!=partial('navbar.jade')
+.container
+  .hero-unit.nogame-visible
+    h3 Welcome to the work of real-time checkers!
+    p Click new game, then send the link to a friend.
+    p
+      button.newgame.btn-large.btn-primary New Game
+  .row.game-visible
+    .span8
+      .row
+        #turnindicator.span7
+      .row
+        #winnerindicator.span7
+      .row
+        #board.span8
+    aside.span4
+      .row
+        button.newgame.btn.btn-primary New Game
+      #chat-window.row
+  hr
+  footer
+    p &copy; Rob Severn 2013

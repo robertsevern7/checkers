@@ -1,5 +1,5 @@
 body {
-  padding: 50px;
+  padding-top: 60px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 .tile {
@@ -78,6 +78,12 @@ body {
 }
 .completely-hidden {
   display: none !important;
+}
+.nogame-visible {
+  display: none;
+}
+.game-visible {
+  display: none;
 }
 .winnerindicator {
   font-weight: bold;
