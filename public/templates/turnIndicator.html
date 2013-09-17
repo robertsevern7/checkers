@@ -1,8 +1,5 @@
-<div class="turnindicator">
-    <% if (yourTurn) { %>
-        Your turn
-    <% } %>
-    <% if (!yourTurn) { %>
-        Waiting on your opponent
-    <% } %>
+<% var text = yourTurn ? 'Your move' : 'Waiting on your opponent'; %>
+<% var pulseClass = yourTurn ? 'pulsing' : ''; %>
+<div class="turnindicator <%= pulseClass %>">
+    <%= text %>
 </div>

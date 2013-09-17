@@ -13,24 +13,23 @@ define([
     'views/GameView',
     'views/TurnIndicatorView',
     'views/GameOverView',
+    'views/GameUrlView',
     'views/ChatView',
     'models/Tile',
     'collections/Tiles'],
-function($, _, Backbone, bootstrap, firebase, GameView, TurnIndicatorView, GameOverView, ChatView, Tile, Tiles) {
+function($, _, Backbone, bootstrap, firebase, GameView, TurnIndicatorView, GameOverView, GameUrlView, ChatView, Tile, Tiles) {
     var fireBaseLocation = 'https://checkers-game.firebaseio.com/checkers/';
     $(function() {
-        //TODO need to store this id as a cookie or something -- maybe local storage?
-        var myId = Math.floor(Math.random()*10000000);
-
-        var firebaseRef = new Firebase('https://checkers-game.firebaseio.com//checkers');
+        var firebaseRef = new Firebase(fireBaseLocation);
         var fireBaseGame;
         var fireBaseBoard;
         var gameOwner;
+        var myId;
         var board = new Tiles();
         $('.newgame').click(function() {
             //TODO probably need a guaranteed unique # from the server
+            var myId = Math.floor(Math.random()*10000000);
             var gameId = Math.floor(Math.random()*10000000);
-            router.navigate('game/' + gameId, {trigger:true});
             fireBaseGame = firebaseRef.child(gameId);
             var initialBoard = board.getInitialBoard();
             fireBaseGame.set({
@@ -40,6 +39,9 @@ function($, _, Backbone, bootstrap, firebase, GameView, TurnIndicatorView, GameO
                     board: initialBoard
                 }
             });
+
+
+            router.navigate('game/' + gameId + '?user=' + myId, {trigger:true});
         });
 
         var turnIndicatorView = new TurnIndicatorView();
@@ -49,30 +51,47 @@ function($, _, Backbone, bootstrap, firebase, GameView, TurnIndicatorView, GameO
         var Router = Backbone.Router.extend({
             routes: {
               "": "home",
-              "game/:id": "game"
+              "game/:params": "game"
             },
             home: function() {
                 $('.nogame-visible').show();
                 $('.game-visible').hide();
             },
-            game: function(id) {
+            game: function(params) {
+                var gameId;
+                var split = params.split('?');
+                if (split.length === 0 || split.length > 2) {
+                    return;
+                } else if (split.length === 1) {
+                    myId = Math.floor(Math.random()*10000000);
+                    gameId = split[0];
+                    router.navigate('game/' + gameId + '?user=' + myId, {trigger:true});
+                    return;
+                } else {
+                    gameId = split[0];
+                    myId = split[1].split('=')[1];
+                }
                 $('.nogame-visible').hide();
                 $('.game-visible').show();
-                fireBaseGame = new Firebase(fireBaseLocation + id);
-
+                fireBaseGame = new Firebase(fireBaseLocation + gameId);
                 fireBaseGame.once('value', function(data) {
-                    isGameOwner = data.val().game.gameOwner === myId;
+                    isGameOwner = data.val().game.gameOwner == myId;
+
+                    if (isGameOwner) {
+                        new GameUrlView();
+                    }
+
                     var initialMessages = data.val().messages;
                     var chatView = new ChatView({
                         fireBaseLocation: fireBaseLocation,
-                        gameId :id,
+                        gameId :gameId,
                         isPlayer1: isGameOwner,
                         initialMessages: initialMessages
                     });
 
                     //The board listeners TODO move into the view
-                    fireBaseBoard = new Firebase(fireBaseLocation + id + '/game');
-                    fireBaseBoard.on('value', setTheBoard);
+                    fireBaseBoard = new Firebase(fireBaseLocation + gameId + '/game');
+                    fireBaseBoard.on('value', $.proxy(setTheBoard, this, myId));
                     chatView.focusInput();
                 });
             }
@@ -107,7 +126,7 @@ function($, _, Backbone, bootstrap, firebase, GameView, TurnIndicatorView, GameO
             fireBaseBoard.update(updateData);
         })
 
-        var setTheBoard = function(data) {
+        var setTheBoard = function(myId, data) {
             if (!data) {
                 return;
             }

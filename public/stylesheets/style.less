@@ -1,21 +1,35 @@
 @page-font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 
+@header-height: 50px;
 @tile-size: 50px;
 @circle-size: @tile-size * 0.8;
 
-@player1-color: blue;
-@player2-color: green;
-@possible-move-color: orange;
+@overall-bg-color: #F5EFE7;
+@section-color: #EFE4D5;
+@button-bg-color_sub: 5E495C;
+@button-bg-color: #5E495C;
 
-@indicator-color: yellow;
+@player1-color: #131375;
+@player2-color: #1A571A;
+@possible-move-color: #A07F42;
+
+
+@indicator-color: #A4BCB2;
 @pulse-rate: pulse 3s infinite;
 
 body {
-  padding-top: 60px;
+  padding-top: @header-height + 40;
   font: @page-font;
+  background-color: @overall-bg-color;
+}
+
+.navbar .brand.mybrand {
+    line-height: @header-height;
+    font-size: 40px;
 }
 
 #board {
+    margin-top: 10px;
     margin-bottom: 10px;
 }
 
@@ -26,7 +40,7 @@ body {
 }
 
 .redboardtile {
-    background-color: red;
+    background-color: rgb(218, 183, 109);
     .tile
 }
 
@@ -107,8 +121,15 @@ body {
     display: none;
 }
 
+#game-url {
+    display: none;
+}
+
+.url {
+    font-size: 20px;
+}
+
 #chat-window {
-    margin-top: 27px;
 }
 
 .messageinput {
@@ -117,7 +138,7 @@ body {
 
 .messages {
     margin: 5px;
-    height: @tile-size * 5;
+    height: @tile-size * 5 + 205;
     overflow-y: auto;
 }
 
@@ -126,7 +147,8 @@ body {
     margin: 5px;
     width: 60%;
     .rounded-corners;
-    background-color: lighten(@color, 40%);
+    color: #ffffcc;
+    background-color: @color;
 }
 
 .player-1-message {
@@ -148,11 +170,13 @@ body {
 }
 
 .indicator {
-    margin: 10px;
     font-weight: bold;
     background-color: @indicator-color;
     padding: 10px;
     .rounded-corners;
+}
+
+.pulsing {
     -webkit-animation: @pulse-rate; /* Safari 4+ */
     -moz-animation:    @pulse-rate; /* Fx 5+ */
     -o-animation:      @pulse-rate; /* Opera 12+ */
@@ -174,4 +198,35 @@ body {
 @keyframes pulse {
   0%   { opacity: 0; }
   100% { opacity: 1; }
+}
+
+
+.well {
+    background-color: @section-color;
+}
+
+.hero-unit {
+    background-color: @section-color;
+}
+
+.btn-primary {
+  background-color: @button-bg-color;
+  *background-color: @button-bg-color;
+  background-image: -moz-linear-gradient(top, @button-bg-color, @button-bg-color);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(@button-bg-color), to(@button-bg-color));
+  background-image: -webkit-linear-gradient(top, @button-bg-color, @button-bg-color);
+  background-image: -o-linear-gradient(top, @button-bg-color, @button-bg-color);
+  background-image: linear-gradient(to bottom, @button-bg-color, @button-bg-color);
+  border-color: @button-bg-color @button-bg-color @button-bg-color;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffbutton-bg-color_sub', endColorstr='#ffbutton-bg-color_sub', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.btn-primary.disabled,
+.btn-primary[disabled] {
+  background-color: @button-bg-color;
 }
