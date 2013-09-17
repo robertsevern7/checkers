@@ -1,0 +1,11 @@
+<div class="chatview">
+    <input type="text" class="messageinput" placeholder = "Enter Message"/>
+    <div class="messages">
+        <% _.each(messages, function(message) { %>
+            <% var playerClass = (message.get('player') == 1) ? 'player-1-message' : 'player-2-message' %>
+            <% var locationClass = (message.get('player') == 1) ? 'pull-left' : 'pull-right' %>
+            <div class="<%=playerClass%>"><%= _.escape(message.get('message')) %></div>
+            <div style="clear:both"></div>
+        <% }) %>
+    </div>
+</div>

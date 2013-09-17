@@ -73,6 +73,7 @@ function($, _, Backbone, bootstrap, firebase, GameView, TurnIndicatorView, GameO
                     //The board listeners TODO move into the view
                     fireBaseBoard = new Firebase(fireBaseLocation + id + '/game');
                     fireBaseBoard.on('value', setTheBoard);
+                    chatView.focusInput();
                 });
             }
         });

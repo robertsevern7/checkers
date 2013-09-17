@@ -31,7 +31,7 @@ function($, _, Backbone, bootstrap, Messages, chatWindow) {
             }));
 
             $('.messages').scrollTop($('.messages')[0].scrollHeight);
-            $('.messageinput').focus();
+            this.focusInput();
             return this;
         }, events: {
             'keyup .messageinput': 'addMessageToFirebase',
@@ -47,9 +47,11 @@ function($, _, Backbone, bootstrap, Messages, chatWindow) {
                     player: isPlayer1 ? 1 : 2,
                     message: value
                 };
-
                 this._fireBaseMessages.push(message);
             }
+        },
+        focusInput: function() {
+            $('.messageinput').focus();
         }
     });
 
