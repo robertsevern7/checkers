@@ -138,9 +138,18 @@ body {
 
 .messages {
     margin: 5px;
-    height: @tile-size * 5 + 205;
+    height: @tile-size * 8 + 68;
     overflow-y: auto;
 }
+@media (max-width: 767px) {
+    .messages {
+        margin: 5px;
+        height: 200px;
+        overflow-y: auto;
+    }
+}
+
+
 
 .message(@color) {
     padding: 3px;

@@ -105,8 +105,15 @@ body {
 }
 .messages {
   margin: 5px;
-  height: 455px;
+  height: 468px;
   overflow-y: auto;
+}
+@media (max-width: 767px) {
+  .messages {
+    margin: 5px;
+    height: 200px;
+    overflow-y: auto;
+  }
 }
 .player-1-message {
   float: left;
