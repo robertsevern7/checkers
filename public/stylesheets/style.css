@@ -1,7 +1,7 @@
 /* apply a natural box layout model to all elements */
-*,
-*:before,
-*:after {
+.circle,
+.circle:before,
+.circle:after {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -144,6 +144,12 @@ body {
   border-radius: 5px;
   color: #ffffcc;
   background-color: #1a571a;
+}
+#turnindicator {
+  padding-bottom: 10px;
+}
+#winnerindicator {
+  padding-bottom: 10px;
 }
 .winnerindicator {
   font-weight: bold;
