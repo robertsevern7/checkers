@@ -2,6 +2,7 @@
 
 @header-height: 50px;
 @tile-size: 50px;
+
 @circle-size: @tile-size * 0.8;
 
 @overall-bg-color: #F5EFE7;
@@ -16,6 +17,11 @@
 
 @indicator-color: #A4BCB2;
 @pulse-rate: pulse 3s infinite;
+
+/* apply a natural box layout model to all elements */
+*, *:before, *:after {
+  -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+}
 
 body {
   padding-top: @header-height + 40;
@@ -106,7 +112,7 @@ body {
 }
 
 .circle.upgraded {
-    .rounded-corners(0);
+    border: 6px solid black;
 }
 
 .completely-hidden {
