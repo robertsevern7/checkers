@@ -27,7 +27,6 @@ function($, _, Backbone, bootstrap, firebase, GameView, TurnIndicatorView, GameO
         var myId;
         var board = new Tiles();
         $('.newgame').click(function() {
-            //TODO probably need a guaranteed unique # from the server
             var myId = Math.floor(Math.random()*10000000);
             var gameId = Math.floor(Math.random()*10000000);
             fireBaseGame = firebaseRef.child(gameId);

@@ -1,5 +1,7 @@
 <div class="chatview">
-    <input type="text" class="messageinput" placeholder = "Enter Message"/>
+    <form action="javascript:void(null);" method="post">
+      <input type="text" class="messageinput" placeholder = "Enter Message"/>
+    </form>
     <div class="messages">
         <% _.each(messages, function(message) { %>
             <% var playerClass = (message.get('player') == 1) ? 'player-1-message' : 'player-2-message' %>
